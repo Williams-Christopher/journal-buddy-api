@@ -15,7 +15,7 @@ app.use(morgan(morganOption));
 app.use(cors());
 app.use(helmet());
 
-app.use('/api/auth', authRouter);
+app.use('/api/login', authRouter);
 
 app.use(function errorHandler(error, req, res, next) {
     let response;
