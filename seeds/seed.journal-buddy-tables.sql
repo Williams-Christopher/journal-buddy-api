@@ -1,3 +1,26 @@
+/* TRUNCATE TABLES */
+BEGIN;
+truncate users, entries restart identity cascade;
+COMMIT;
+
+
+/* USERS */
+BEGIN;
+insert into users (user_name, password, email) values ('user', 'password', 'demo@demo.org');
+insert into users (user_name, password, email) values ('pstickings0', '$2a$12$xwSsS.HYOH9WsPQUN9GqzeM.nEMD.rOtbbK8qDW8fX2bZBvDUphmC'
+, 'gcowderoy0@rakuten.co.jp'); -- password01
+insert into users (user_name, password, email) values ('cedgson1', '$2a$12$AkKUIbD/z4zR/YY2jBT6HeAxEs3hC1wlTDiDcBFPkeSYeDmOLmxe6'
+, 'bfollos1@sfgate.com'); -- password02
+insert into users (user_name, password, email) values ('kmccurtin2', '$2a$12$g1Ce8Y69.8E5TSOWxW5Ag.c2proYu18PLdNUlOdXIPNUMoRVn8uBq'
+, 'ldawdary2@utexas.edu'); -- password03
+insert into users (user_name, password, email) values ('ldesmond3', '$2a$12$ctru8YZhV7ja/fLFLeLSaus2bmzkiiyFP.IptcDNlOxxH4vjAK0eu'
+, 'ehugett3@mysql.com'); -- password04
+insert into users (user_name, password, email) values ('ghares4', '$2a$12$h.LQ0Efj9ZgyKGHMNHx6tO8RfJpByvNu2XP/r6i56xYBMscMcx2xi'
+, 'lfarre4@csmonitor.com'); -- password05
+COMMIT;
+
+/* ENTRIES */
+BEGIN;
 insert into entries (user_id, feeling, title, body, privacy, created) values (4, 2, 'Vestibulum ante ipsum primis in faucibus orci luct', 'Quisque porta volutpat erat. Quisque erat eros, viverra eget, congue eget, semper rutrum, nulla. Nunc purus.
 
 Phasellus in felis. Donec semper sapien a libero. Nam dui.
@@ -182,3 +205,4 @@ Integer tincidunt ante vel ipsum. Praesent blandit lacinia erat. Vestibulum sed 
 
 Praesent blandit. Nam nulla. Integer pede justo, lacinia eget, tincidunt eget, tempus vel, pede.', 0, '2019-06-06T23:32:50Z');
 insert into entries (user_id, feeling, title, body, privacy, created) values (2, 1, 'In quis justo.', 'Aliquam quis turpis eget elit sodales scelerisque. Mauris sit amet eros. Suspendisse accumsan tortor quis turpis.', 0, '2018-12-24T12:56:39Z');
+COMMIT;
