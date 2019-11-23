@@ -1,0 +1,1 @@
+psql -U journalbuddy -d journal-buddy-dev -f ./seeds/seed.journal-buddy-tables.sql
