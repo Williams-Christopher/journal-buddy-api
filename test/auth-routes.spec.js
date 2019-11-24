@@ -73,9 +73,6 @@ describe(`Auth Routes`, () => {
                     .post('/api/login')
                     .send(testUser)
                     .expect(200, /authToken/)
-                    .expect(response => {
-                        console.log(response);
-                    });
             });
         });
     });
