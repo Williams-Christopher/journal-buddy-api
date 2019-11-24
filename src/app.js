@@ -4,10 +4,11 @@ const morgan = require('morgan');
 const cors = require('cors');
 const helmet = require('helmet');
 const { NODE_ENV } = require('./config');
-// Testing
+// Testing until we have a router that needs requireAuth
 const requireAuth = require('./middleware/jwt-auth');
 
 const authRouter = require('./auth/auth-router');
+const usersRouter = require('./users/users-router');
 
 const app = express();
 const morganOption = (NODE_ENV === 'production') ? 'tiny' : 'common';
@@ -16,6 +17,7 @@ app.use(cors());
 app.use(helmet());
 
 app.use('/api/login', authRouter);
+app.use('/api/users', usersRouter);
 
 app.use(function errorHandler(error, req, res, next) {
     let response;
@@ -31,6 +33,7 @@ app.get('/api/test/*', (req, res) => {
     res.json({ok: true});
 });
 
+// Testing until we have a router that needs requireAuth
 app.get('/api/auth-test', requireAuth, (req, res) => {
     res.json({message: 'You did it'});
 });
