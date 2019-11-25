@@ -6,16 +6,15 @@ COMMIT;
 
 /* USERS */
 BEGIN;
-insert into users (user_name, first_name, password, email) values ('user', 'password', 'demo@demo.org');
-insert into users (user_name, password, email) values ('pstickings0', 'Paul', '$2a$12$xwSsS.HYOH9WsPQUN9GqzeM.nEMD.rOtbbK8qDW8fX2bZBvDUphmC'
+insert into users (user_name, first_name, password, email) values ('pstickings0', 'Paul', '$2a$12$xwSsS.HYOH9WsPQUN9GqzeM.nEMD.rOtbbK8qDW8fX2bZBvDUphmC'
 , 'gcowderoy0@rakuten.co.jp'); -- password01
-insert into users (user_name, password, email) values ('cedgson1', 'Cedric', '$2a$12$AkKUIbD/z4zR/YY2jBT6HeAxEs3hC1wlTDiDcBFPkeSYeDmOLmxe6'
+insert into users (user_name, first_name, password, email) values ('cedgson1', 'Cedric', '$2a$12$AkKUIbD/z4zR/YY2jBT6HeAxEs3hC1wlTDiDcBFPkeSYeDmOLmxe6'
 , 'bfollos1@sfgate.com'); -- password02
-insert into users (user_name, password, email) values ('kmccurtin2', 'Kevin', '$2a$12$g1Ce8Y69.8E5TSOWxW5Ag.c2proYu18PLdNUlOdXIPNUMoRVn8uBq'
+insert into users (user_name, first_name, password, email) values ('kmccurtin2', 'Kevin', '$2a$12$g1Ce8Y69.8E5TSOWxW5Ag.c2proYu18PLdNUlOdXIPNUMoRVn8uBq'
 , 'ldawdary2@utexas.edu'); -- password03
-insert into users (user_name, password, email) values ('ldesmond3', 'Lillian', '$2a$12$ctru8YZhV7ja/fLFLeLSaus2bmzkiiyFP.IptcDNlOxxH4vjAK0eu'
+insert into users (user_name, first_name, password, email) values ('ldesmond3', 'Lillian', '$2a$12$ctru8YZhV7ja/fLFLeLSaus2bmzkiiyFP.IptcDNlOxxH4vjAK0eu'
 , 'ehugett3@mysql.com'); -- password04
-insert into users (user_name, password, email) values ('ghares4', 'Gina', '$2a$12$h.LQ0Efj9ZgyKGHMNHx6tO8RfJpByvNu2XP/r6i56xYBMscMcx2xi'
+insert into users (user_name, first_name, password, email) values ('ghares4', 'Gina', '$2a$12$h.LQ0Efj9ZgyKGHMNHx6tO8RfJpByvNu2XP/r6i56xYBMscMcx2xi'
 , 'lfarre4@csmonitor.com'); -- password05
 COMMIT;
 
@@ -28,7 +27,7 @@ Phasellus in felis. Donec semper sapien a libero. Nam dui.
 Proin leo odio, porttitor id, consequat in, consequat ut, nulla. Sed accumsan felis. Ut at dolor quis odio consequat varius.
 
 Integer ac leo. Pellentesque ultrices mattis odio. Donec vitae nisi.', 1, '2019-04-16T09:00:03Z');
-insert into entries (user_id, feeling, title, body, privacy, created) values (6, 3, 'Proin leo odio, porttitor id, consequat in, conseq', 'Phasellus in felis. Donec semper sapien a libero. Nam dui.
+insert into entries (user_id, feeling, title, body, privacy, created) values (5, 3, 'Proin leo odio, porttitor id, consequat in, conseq', 'Phasellus in felis. Donec semper sapien a libero. Nam dui.
 
 Proin leo odio, porttitor id, consequat in, consequat ut, nulla. Sed accumsan felis. Ut at dolor quis odio consequat varius.
 
@@ -83,12 +82,12 @@ Donec diam neque, vestibulum eget, vulputate ut, ultrices vel, augue. Vestibulum
 Duis bibendum. Morbi non quam nec dui luctus rutrum. Nulla tellus.
 
 In sagittis dui vel nisl. Duis ac nibh. Fusce lacus purus, aliquet at, feugiat non, pretium quis, lectus.', 0, '2019-10-19T08:03:37Z');
-insert into entries (user_id, feeling, title, body, privacy, created) values (6, 2, 'In hac habitasse platea dictumst.', 'Quisque porta volutpat erat. Quisque erat eros, viverra eget, congue eget, semper rutrum, nulla. Nunc purus.
+insert into entries (user_id, feeling, title, body, privacy, created) values (3, 2, 'In hac habitasse platea dictumst.', 'Quisque porta volutpat erat. Quisque erat eros, viverra eget, congue eget, semper rutrum, nulla. Nunc purus.
 
 Phasellus in felis. Donec semper sapien a libero. Nam dui.
 
 Proin leo odio, porttitor id, consequat in, consequat ut, nulla. Sed accumsan felis. Ut at dolor quis odio consequat varius.', 0, '2019-08-22T15:05:11Z');
-insert into entries (user_id, feeling, title, body, privacy, created) values (6, 1, 'In est risus, auctor sed, tristique in, tempus sit', 'Proin eu mi. Nulla ac enim. In tempor, turpis nec euismod scelerisque, quam turpis adipiscing lorem, vitae mattis nibh ligula nec sem.
+insert into entries (user_id, feeling, title, body, privacy, created) values (2, 1, 'In est risus, auctor sed, tristique in, tempus sit', 'Proin eu mi. Nulla ac enim. In tempor, turpis nec euismod scelerisque, quam turpis adipiscing lorem, vitae mattis nibh ligula nec sem.
 
 Duis aliquam convallis nunc. Proin at turpis a pede posuere nonummy. Integer non velit.
 
@@ -150,7 +149,7 @@ insert into entries (user_id, feeling, title, body, privacy, created) values (5,
 Morbi non lectus. Aliquam sit amet diam in magna bibendum imperdiet. Nullam orci pede, venenatis non, sodales sed, tincidunt eu, felis.
 
 Fusce posuere felis sed lacus. Morbi sem mauris, laoreet ut, rhoncus aliquet, pulvinar sed, nisl. Nunc rhoncus dui vel sem.', 1, '2019-06-29T20:32:16Z');
-insert into entries (user_id, feeling, title, body, privacy, created) values (6, 2, 'Vestibulum sed magna at nunc commodo placerat.', 'Vestibulum quam sapien, varius ut, blandit non, interdum in, ante. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Duis faucibus accumsan odio. Curabitur convallis.
+insert into entries (user_id, feeling, title, body, privacy, created) values (1, 2, 'Vestibulum sed magna at nunc commodo placerat.', 'Vestibulum quam sapien, varius ut, blandit non, interdum in, ante. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Duis faucibus accumsan odio. Curabitur convallis.
 
 Duis consequat dui nec nisi volutpat eleifend. Donec ut dolor. Morbi vel lectus in quam fringilla rhoncus.
 
@@ -177,7 +176,7 @@ insert into entries (user_id, feeling, title, body, privacy, created) values (4,
 Curabitur in libero ut massa volutpat convallis. Morbi odio odio, elementum eu, interdum eu, tincidunt in, leo. Maecenas pulvinar lobortis est.
 
 Phasellus sit amet erat. Nulla tempus. Vivamus in felis eu sapien cursus vestibulum.', 1, '2019-08-16T21:04:17Z');
-insert into entries (user_id, feeling, title, body, privacy, created) values (6, 1, 'Sed ante.', 'In hac habitasse platea dictumst. Morbi vestibulum, velit id pretium iaculis, diam erat fermentum justo, nec condimentum neque sapien placerat ante. Nulla justo.
+insert into entries (user_id, feeling, title, body, privacy, created) values (2, 1, 'Sed ante.', 'In hac habitasse platea dictumst. Morbi vestibulum, velit id pretium iaculis, diam erat fermentum justo, nec condimentum neque sapien placerat ante. Nulla justo.
 
 Aliquam quis turpis eget elit sodales scelerisque. Mauris sit amet eros. Suspendisse accumsan tortor quis turpis.
 
