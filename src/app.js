@@ -5,8 +5,11 @@ const cors = require('cors');
 const helmet = require('helmet');
 const { NODE_ENV } = require('./config');
 
+const requireAuth = require('./middleware/jwt-auth');
+
 const authRouter = require('./auth/auth-router');
 const usersRouter = require('./users/users-router');
+const journalEntriesRouter = require('./journal-entries/journal-entries-router');
 
 const app = express();
 const morganOption = (NODE_ENV === 'production') ? 'tiny' : 'common';
@@ -16,6 +19,7 @@ app.use(helmet());
 
 app.use('/api/login', authRouter);
 app.use('/api/users', usersRouter);
+app.use('/api/journal-entries', journalEntriesRouter);
 
 app.use(function errorHandler(error, req, res, next) {
     let response;
@@ -29,6 +33,10 @@ app.use(function errorHandler(error, req, res, next) {
 
 app.get('/api/alive', (req, res) => {
     res.json({ok: true});
+});
+
+app.get('/api/auth-test', requireAuth, (req, res, next) => {
+    res.status(200).json({message: `It works!`});
 });
 
 module.exports = app;
