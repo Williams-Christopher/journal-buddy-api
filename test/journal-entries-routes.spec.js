@@ -39,7 +39,7 @@ describe.only(`Users routes`, () => {
             const testToken = testHelpers.createBearerToken(testUser);
             console.log('TEST TOKEN: ', testToken);
 
-            it(`responds 400 'Missing user_id in request body`, () => {
+            it.skip(`responds 400 'Missing user_id in request body`, () => {
                 const badEntry = Object.assign({}, testEntry);
                 delete badEntry.user_id;
 
@@ -84,19 +84,24 @@ describe.only(`Users routes`, () => {
             });
         });
 
-        context(`given a request body with a valid entry and JWT`, () => {
+        context(`given a request body with a valid entry and token`, () => {
+            beforeEach(`seed users table`, () => testHelpers.seedUsersTable(db));
+            afterEach(`truncate tables`, () => testHelpers.truncateTables(db));
+
             const goodEntry = Object.assign({}, testEntry);
+            delete goodEntry.id;
             delete goodEntry.created;
 
-            return supertest(app)
-                .post('/api/journal-entries')
-                .send(goodEntry)
-                .set('Authorization', `${testHelpers.createBearerToken(testUser)}`)
-                .expect(201)
-                // .expect(res.headers.location).to.eql(`/api/journal-entries/${}`)
-                // .expect(res => {
-
-                // })
+            it(`responds 201 with a link to the new entry in the location header`, () => {
+                return supertest(app)
+                    .post('/api/journal-entries')
+                    .send(goodEntry)
+                    .set('Authorization', `${testHelpers.createBearerToken(testUser)}`)
+                    .expect(201)
+                    .expect(res => {
+                        expect(res.headers).to.have.property('location');
+                    });
+            });
         });
     });
 

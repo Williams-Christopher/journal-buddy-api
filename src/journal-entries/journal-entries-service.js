@@ -10,6 +10,13 @@ JournalEntriesService = {
             privacy: newEntry.privacy,
         };
     },
+
+    insertEntry(db, newEntry) {
+        return db
+            .into('entries')
+            .insert(newEntry)
+            .returning('id');
+    },
 };
 
 module.exports = JournalEntriesService;

@@ -124,7 +124,7 @@ function createEntriesArray() {
 
 function createBearerToken(user = {}, secret = process.env.JWT_SECRET) {
     const token = jwt.sign(
-        { user_id: user.id },
+        { id: user.id },
         secret,
         { subject: user.user_name, algorithm: 'HS256'}
     );
