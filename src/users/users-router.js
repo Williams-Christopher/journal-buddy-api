@@ -6,6 +6,8 @@ const jsonBodyParser = express.json();
 
 usersRouter
     .post('/', jsonBodyParser, (req, res, next) => {
+        const db = req.app.get('db');
+        
         const { user_name, first_name, email, password } = req.body;
         const newUser = {
             user_name: user_name,
