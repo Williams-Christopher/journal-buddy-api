@@ -4,8 +4,6 @@ const morgan = require('morgan');
 const cors = require('cors');
 const helmet = require('helmet');
 const { NODE_ENV } = require('./config');
-// Testing until we have a router that needs requireAuth
-const requireAuth = require('./middleware/jwt-auth');
 
 const authRouter = require('./auth/auth-router');
 const usersRouter = require('./users/users-router');
@@ -29,13 +27,8 @@ app.use(function errorHandler(error, req, res, next) {
     res.status(500).json(response);
 });
 
-app.get('/api/test/*', (req, res) => {
+app.get('/api/alive', (req, res) => {
     res.json({ok: true});
-});
-
-// Testing until we have a router that needs requireAuth
-app.get('/api/auth-test', requireAuth, (req, res) => {
-    res.json({message: 'You did it'});
 });
 
 module.exports = app;
