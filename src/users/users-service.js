@@ -1,4 +1,5 @@
 const xss = require('xss');
+const bcrypt = require('bcryptjs');
 const PASSWORD_REGEX = /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&])(?=.{8,})[\S]+/;
 
 const UsersService = {
@@ -40,7 +41,7 @@ const UsersService = {
             user_name: xss(newUser.user_name),
             first_name: xss(newUser.first_name),
             email: xss(newUser.email),
-            password: newUser.password,
+            password: bcrypt.hashSync(newUser.password, 12),
         };
     },
 };
