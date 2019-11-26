@@ -17,6 +17,14 @@ JournalEntriesService = {
             .insert(newEntry)
             .returning('id');
     },
+
+    getEntriesForUser(db, id) {
+        return db('entries')
+            .select('*')
+            .where({
+                user_id: id
+            });
+    },
 };
 
 module.exports = JournalEntriesService;

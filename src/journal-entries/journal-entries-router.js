@@ -42,6 +42,16 @@ journalEntriesRouter
                     .end();
             })
             .catch(next);
+    })
+    .get('/', requireAuth, jsonBodyParser, (req, res, next) => {
+        const db = req.app.get('db');
+        const userId = req.userRecord.id;
+
+        JournalEntriesService.getEntriesForUser(db, userId)
+            .then(entries => {
+                return res.status(200).json(entries);
+            })
+            .catch(next);
     });
 
 module.exports = journalEntriesRouter;

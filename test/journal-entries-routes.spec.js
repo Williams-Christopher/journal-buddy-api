@@ -109,7 +109,51 @@ describe.only(`Users routes`, () => {
 
     });
 
-    describe.skip(`GET /api/journal-entries`, () => {
+    describe.only(`GET /api/journal-entries`, () => {
+        beforeEach(`seed tables`, () => testHelpers.seedAllTables(db));
+        afterEach(`truncate tables`, () => testHelpers.truncateTables(db));
 
+        describe(`/api/journal-entries`, () => {
+            const testUser = testHelpers.createUsersArray()[0];
+
+            context(`given a request with an invalid token`, () => {
+
+                it(`responds with 401 and 'Unauthorized request'`, () => {
+                    return supertest(app)
+                        .get('/api/journal-entries')
+                        .set('Authorization', testHelpers.createBearerToken(testUser, 'invalid-secret'))
+                        .expect(401, {error: 'Unauthorized request'});
+                });
+            });
+
+            context.only(`given a request with a valid token`, () => {
+                it(`responds with 200 and a list of entries for the token user id`, () => {
+                    const expectedEntries = testHelpers.createEntriesArray()
+                        .filter(entry => entry.user_id == 1);
+
+                    return supertest(app)
+                        .get('/api/journal-entries')
+                        .set('Authorization', testHelpers.createBearerToken(testUser))
+                        .expect(200)
+                        .expect(res => {
+                            expect(res.body.length).to.eql(expectedEntries.length);
+                            for (const prop of ['id', 'user_id', 'entry_id', 'feeling', 'title', 'body', 'privacy', 'created']) {
+                                for(let i = 0; i < res.body.length; i++) {
+                                    expect(res.body[i]).to.have.property(prop);
+                                    expect(res.body[i][prop]).to.eql(res.body[i][prop]);
+                                };
+                            };
+                        });
+                });
+            });
+        });
+
+        describe(`/api/journal-entries/:id`, () => {
+
+        });
+
+        describe(`/api/journal-entries/share/:id`, () => {
+
+        });
     });
 });
