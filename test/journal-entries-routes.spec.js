@@ -137,10 +137,10 @@ describe.only(`Users routes`, () => {
                         .expect(200)
                         .expect(res => {
                             expect(res.body.length).to.eql(expectedEntries.length);
-                            for (const prop of ['id', 'user_id', 'entry_id', 'feeling', 'title', 'body', 'privacy', 'created']) {
+                            for (const prop of ['id', 'user_id', 'entry_id', 'feeling', 'title', 'body', 'privacy']) {
                                 for(let i = 0; i < res.body.length; i++) {
                                     expect(res.body[i]).to.have.property(prop);
-                                    expect(res.body[i][prop]).to.eql(res.body[i][prop]);
+                                    expect(res.body[i][prop]).to.equal(expectedEntries[i][prop]);
                                 };
                             };
                         });
