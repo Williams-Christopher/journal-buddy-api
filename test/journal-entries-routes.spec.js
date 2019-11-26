@@ -4,7 +4,7 @@ const app = require('../src/app');
 const testHelpers = require('./test-helpers');
 const { DB_URL } = require('../src/config');
 
-describe.only(`Users routes`, () => {
+describe(`Users routes`, () => {
     before(`create db connection`, () => {
         db = knex({
             client: 'pg',
@@ -38,17 +38,6 @@ describe.only(`Users routes`, () => {
 
             const testToken = testHelpers.createBearerToken(testUser);
             console.log('TEST TOKEN: ', testToken);
-
-            it.skip(`responds 400 'Missing user_id in request body`, () => {
-                const badEntry = Object.assign({}, testEntry);
-                delete badEntry.user_id;
-
-                return supertest(app)
-                    .post('/api/journal-entries')
-                    .send(badEntry)
-                    .set('Authorization', testHelpers.createBearerToken(testUser))
-                    .expect(400, {error: 'Missing user_id in request body'});
-            });
 
             it(`responds 400 'Missing feeling in request body`, () => {
                 const badEntry = Object.assign({}, testEntry);
@@ -150,6 +139,60 @@ describe.only(`Users routes`, () => {
         });
 
         describe(`/api/journal-entries/:id`, () => {
+            const testUserWithEntries = testHelpers.createUsersArray()[0];
+            const testUserWithNoEntries = testHelpers.createUsersArray()[3];
+            const testEntry = testHelpers.createEntriesArray()[0];
+
+            context(`given an invalid auth token`, () => {
+                it(`responds 401 'Unauthorized request`, () => {
+                    const authToken = testHelpers.createBearerToken(testUserWithEntries, 'invalid-secret');
+                    const { entry_id } = testEntry;
+
+                    return supertest(app)
+                        .get(`/api/journal-entries/${entry_id}`)
+                        .set('Authorization', authToken)
+                        .expect(401, {error: 'Unauthorized request'});
+                });
+            });
+
+            context(`given a valid auth token`, () => {
+                it(`responds 401 'Entry does not exist for user' when given an invalid user id and valid entry id`, () => {
+                    const user = Object.assign({}, testUserWithNoEntries);
+                    const authToken = testHelpers.createBearerToken(user);
+                    const { entry_id } = testEntry;
+
+                    return supertest(app)
+                        .get(`/api/journal-entries/${entry_id}`)
+                        .set('Authorization', authToken)
+                        .expect(401, {error: 'Entry does not exist for user'});
+                });
+
+                it(`responds 401 'Entry does not exist for user' when given a valid user id and invalid entry_id`, () => {
+                    const invalidEntryId = '00000000-1111-2222-3333-444444444444';
+                    const authToken = testHelpers.createBearerToken(testUserWithEntries);
+
+                    return supertest(app)
+                        .get(`/api/journal-entries/${invalidEntryId}`)
+                        .set('Authorization', authToken)
+                        .expect(401, {error: 'Entry does not exist for user'});
+                });
+
+                it(`responds 200 with the request entry when given a valid user and entry id combination`, () => {
+                    const { entry_id } = testEntry;
+                    const authToken = testHelpers.createBearerToken(testUserWithEntries);
+
+                    return supertest(app)
+                        .get(`/api/journal-entries/${entry_id}`)
+                        .set('Authorization', authToken)
+                        .expect(200)
+                        .expect(res => {
+                            for (const prop of ['id', 'user_id', 'entry_id', 'feeling', 'title', 'body', 'privacy']) {
+                                expect(res.body).to.have.property(prop);
+                                expect(res.body[prop]).to.equal(testEntry[prop]);
+                            };
+                        });
+                });
+            });
 
         });
 

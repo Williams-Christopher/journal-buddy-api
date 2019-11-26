@@ -69,6 +69,14 @@ function createUsersArray() {
             password: 'password03',
             email: 'ldawdary2@utexas.edu',
         },
+        {
+            id: 4,
+            user_name: 'no_entries_user',
+            first_name: 'NoEntries',
+            // password: '$2a$12$g1Ce8Y69.8E5TSOWxW5Ag.c2proYu18PLdNUlOdXIPNUMoRVn8uBq', /* password03 */
+            password: 'password04',
+            email: 'NoEntries@utexas.edu',
+        }
     ];
 };
 
