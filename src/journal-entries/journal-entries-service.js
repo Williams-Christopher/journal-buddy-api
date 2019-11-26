@@ -15,7 +15,7 @@ JournalEntriesService = {
         return db
             .into('entries')
             .insert(newEntry)
-            .returning('id');
+            .returning('entry_id');
     },
 
     getEntriesForUser(db, id) {

@@ -91,6 +91,7 @@ describe.only(`Users routes`, () => {
             const goodEntry = Object.assign({}, testEntry);
             delete goodEntry.id;
             delete goodEntry.created;
+            goodEntry.privacy = 1;
 
             it(`responds 201 with a link to the new entry in the location header`, () => {
                 return supertest(app)
@@ -109,7 +110,7 @@ describe.only(`Users routes`, () => {
 
     });
 
-    describe.only(`GET /api/journal-entries`, () => {
+    describe(`GET /api/journal-entries`, () => {
         beforeEach(`seed tables`, () => testHelpers.seedAllTables(db));
         afterEach(`truncate tables`, () => testHelpers.truncateTables(db));
 
@@ -126,7 +127,7 @@ describe.only(`Users routes`, () => {
                 });
             });
 
-            context.only(`given a request with a valid token`, () => {
+            context(`given a request with a valid token`, () => {
                 it(`responds with 200 and a list of entries for the token user id`, () => {
                     const expectedEntries = testHelpers.createEntriesArray()
                         .filter(entry => entry.user_id == 1);

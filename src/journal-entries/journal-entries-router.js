@@ -29,21 +29,22 @@ journalEntriesRouter
         const sanitizedEntry = JournalEntriesService.serializeEntry(tempEntry);
 
         JournalEntriesService.insertEntry(db, sanitizedEntry)
-            .then(id => {
-                console.log(id);
-                if(!id) {
+            .then(rawEntryId => {
+                if(!rawEntryId) {
                     return res
                         .status(400)
                         .json({error: 'There was an error inserting the new entry'});
                 }
                 return res
                     .status(201)
-                    .location(path.posix.join(req.originalUrl, `/${id}`))
+                    .location(path.posix.join(req.originalUrl, `/${rawEntryId[0]}`))
                     .end();
             })
             .catch(next);
     })
     .get('/', requireAuth, jsonBodyParser, (req, res, next) => {
+        // Why is this route causing a warning about a pronise being created
+        // but not returned from in jwt-auth at 23:17????
         const db = req.app.get('db');
         const userId = req.userRecord.id;
 
