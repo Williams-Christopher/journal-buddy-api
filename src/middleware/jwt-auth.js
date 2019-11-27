@@ -21,6 +21,7 @@ function requireAuth(req, res, next) {
                 // placing the complete user record as an object in the request for use in the next middleware
                 req.userRecord = userRecord;
                 next();
+                return null;
             })
             .catch(err => {
                 console.error(err);

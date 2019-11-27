@@ -7,7 +7,8 @@ const journalEntriesRouter = express.Router();
 const path = require('path');
 
 journalEntriesRouter
-    .post('/', requireAuth, jsonBodyParser, (req, res, next) => {
+    .all('/*', requireAuth)
+    .post('/', jsonBodyParser, (req, res, next) => {
         const db = req.app.get('db');
 
         const {feeling, body, privacy} = req.body;
@@ -42,7 +43,7 @@ journalEntriesRouter
             })
             .catch(next);
     })
-    .get('/', requireAuth, jsonBodyParser, (req, res, next) => {
+    .get('/', (req, res, next) => {
         // Why is this route causing a warning about a promise being created
         // but not returned from in jwt-auth at 23:17????
         const db = req.app.get('db');
@@ -54,7 +55,7 @@ journalEntriesRouter
             })
             .catch(next);
     })
-    .get('/:entry_id', requireAuth, jsonBodyParser, (req, res, next) => {
+    .get('/:entry_id', (req, res, next) => {
         const db = req.app.get('db');
         const requestedEntry = req.params.entry_id;
         const forUserId = req.userRecord.id;
