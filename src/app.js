@@ -31,7 +31,7 @@ app.use(function errorHandler(error, req, res, next) {
     res.status(500).json(response);
 });
 
-app.get('/api/alive', (req, res) => {
+app.get('/api/status', (req, res) => {
     res.json({ok: true});
 });
 
