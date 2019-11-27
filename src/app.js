@@ -10,6 +10,7 @@ const requireAuth = require('./middleware/jwt-auth');
 const authRouter = require('./auth/auth-router');
 const usersRouter = require('./users/users-router');
 const journalEntriesRouter = require('./journal-entries/journal-entries-router');
+const shareRouter = require('./share/share-router');
 
 const app = express();
 const morganOption = (NODE_ENV === 'production') ? 'tiny' : 'common';
@@ -20,6 +21,7 @@ app.use(helmet());
 app.use('/api/login', authRouter);
 app.use('/api/users', usersRouter);
 app.use('/api/journal-entries', journalEntriesRouter);
+app.use('/api/share', shareRouter);
 
 app.use(function errorHandler(error, req, res, next) {
     let response;
