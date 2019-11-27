@@ -37,7 +37,6 @@ describe(`Users routes`, () => {
             afterEach(`truncate tables`, () => testHelpers.truncateTables(db));
 
             const testToken = testHelpers.createBearerToken(testUser);
-            console.log('TEST TOKEN: ', testToken);
 
             it(`responds 400 'Missing feeling in request body`, () => {
                 const badEntry = Object.assign({}, testEntry);
@@ -138,7 +137,7 @@ describe(`Users routes`, () => {
             });
         });
 
-        describe(`/api/journal-entries/:id`, () => {
+        describe(`/api/journal-entries/:entry_id`, () => {
             const testUserWithEntries = testHelpers.createUsersArray()[0];
             const testUserWithNoEntries = testHelpers.createUsersArray()[3];
             const testEntry = testHelpers.createEntriesArray()[0];
@@ -156,7 +155,7 @@ describe(`Users routes`, () => {
             });
 
             context(`given a valid auth token`, () => {
-                it(`responds 401 'Entry does not exist for user' when given an invalid user id and valid entry id`, () => {
+                it(`responds 400 'Entry does not exist for user' when given an invalid user id and valid entry id`, () => {
                     const user = Object.assign({}, testUserWithNoEntries);
                     const authToken = testHelpers.createBearerToken(user);
                     const { entry_id } = testEntry;
@@ -164,17 +163,17 @@ describe(`Users routes`, () => {
                     return supertest(app)
                         .get(`/api/journal-entries/${entry_id}`)
                         .set('Authorization', authToken)
-                        .expect(401, {error: 'Entry does not exist for user'});
+                        .expect(400, {error: 'Entry does not exist for user'});
                 });
 
-                it(`responds 401 'Entry does not exist for user' when given a valid user id and invalid entry_id`, () => {
+                it(`responds 400 'Entry does not exist for user' when given a valid user id and invalid entry_id`, () => {
                     const invalidEntryId = '00000000-1111-2222-3333-444444444444';
                     const authToken = testHelpers.createBearerToken(testUserWithEntries);
 
                     return supertest(app)
                         .get(`/api/journal-entries/${invalidEntryId}`)
                         .set('Authorization', authToken)
-                        .expect(401, {error: 'Entry does not exist for user'});
+                        .expect(400, {error: 'Entry does not exist for user'});
                 });
 
                 it(`responds 200 with the request entry when given a valid user and entry id combination`, () => {
@@ -196,8 +195,46 @@ describe(`Users routes`, () => {
 
         });
 
-        describe(`/api/journal-entries/share/:id`, () => {
+        describe(`/api/journal-entries/share/json/:entry_id`, () => {
+            const validPublicEntryId = testHelpers.createEntriesArray()[2];
+            const validPrivateEntryId = testHelpers.createEntriesArray()[0];
+            const invalidEntryId = '11111111-2222-3333-4444-555555555555'
 
+            it(`responds 400 'Entry does not exist or is private' when an invalid entry_id is given`, () => {
+                return supertest(app)
+                    .get(`/api/journal-entries/share/json/${invalidEntryId}`)
+                    .expect(400, {error: 'Entry does not exist or is private'});
+            });
+
+            it(`responds 400 'Entry does not exist or is private' when a valid entry_id is given but the entry is private`, () => {
+                return supertest(app)
+                    .get(`/api/journal-entries/share/json/${validPrivateEntryId.entry_id}`)
+                    .expect(400, {error: 'Entry does not exist or is private'});
+            });
+
+            it(`responds 200 with the requested entry in a JSON formatted body when a public and valid entry_id is requested`, () => {
+                return supertest(app)
+                .get(`/api/journal-entries/share/json/${validPublicEntryId.entry_id}`)
+                .expect(200)
+                .expect(res => {
+                    // const resultProperties = ['user', 'title', 'body', 'created'];
+                    const resultProperties = ['user', 'title', 'body'];
+                    const expectedUserName = testHelpers.createUsersArray().filter(user =>
+                        user.id === validPublicEntryId.user_id
+                    );
+                    const expectedValues = [
+                        expectedUserName[0].user_name,
+                        validPublicEntryId.title,
+                        validPublicEntryId.body,
+                        // validPublicEntryId.created
+                    ];
+
+                    resultProperties.forEach((prop, index) => {
+                        expect(res.body).to.have.property(prop);
+                        expect(res.body[prop]).to.equal(expectedValues[index]);
+                    });
+                });
+            });
         });
     });
 });
