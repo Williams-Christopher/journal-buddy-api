@@ -62,11 +62,35 @@ journalEntriesRouter
         JournalEntriesService.getEntryForUser(db, requestedEntry, forUserId)
             .then(entry => {
                 if(entry.length === 0) {
-                    return res.status(401).json({error: 'Entry does not exist for user'});
+                    return res.status(400).json({error: 'Entry does not exist for user'});
                 }
 
                 return res.status(200).json(entry[0]);
-            });
+            })
+            .catch(next);
+    });
+    
+journalEntriesRouter
+    .get('/share/json/:entry_id', (req, res, next) => {
+        const db = req.app.get('db');
+        const requestedEntryId = req.params.entry_id;
+
+        JournalEntriesService.getEntryForPermalink(db, requestedEntryId)
+            .then(entry => {
+                if(entry.length === 0) {
+                    return res.status(400).json({error: 'Entry does not exist or is private'});
+                }
+
+                return res
+                    .status(200)
+                    .json({
+                        user: entry[0].user_name,
+                        title: entry[0].title,
+                        body: entry[0].body,
+                        created: entry[0].created
+                    });
+            })
+            .catch(next);
     });
 
 module.exports = journalEntriesRouter;
