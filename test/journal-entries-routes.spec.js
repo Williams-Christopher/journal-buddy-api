@@ -194,47 +194,5 @@ describe(`Users routes`, () => {
             });
 
         });
-
-        describe(`/api/journal-entries/share/json/:entry_id`, () => {
-            const validPublicEntryId = testHelpers.createEntriesArray()[2];
-            const validPrivateEntryId = testHelpers.createEntriesArray()[0];
-            const invalidEntryId = '11111111-2222-3333-4444-555555555555'
-
-            it(`responds 400 'Entry does not exist or is private' when an invalid entry_id is given`, () => {
-                return supertest(app)
-                    .get(`/api/journal-entries/share/json/${invalidEntryId}`)
-                    .expect(400, {error: 'Entry does not exist or is private'});
-            });
-
-            it(`responds 400 'Entry does not exist or is private' when a valid entry_id is given but the entry is private`, () => {
-                return supertest(app)
-                    .get(`/api/journal-entries/share/json/${validPrivateEntryId.entry_id}`)
-                    .expect(400, {error: 'Entry does not exist or is private'});
-            });
-
-            it(`responds 200 with the requested entry in a JSON formatted body when a public and valid entry_id is requested`, () => {
-                return supertest(app)
-                .get(`/api/journal-entries/share/json/${validPublicEntryId.entry_id}`)
-                .expect(200)
-                .expect(res => {
-                    // const resultProperties = ['user', 'title', 'body', 'created'];
-                    const resultProperties = ['user', 'title', 'body'];
-                    const expectedUserName = testHelpers.createUsersArray().filter(user =>
-                        user.id === validPublicEntryId.user_id
-                    );
-                    const expectedValues = [
-                        expectedUserName[0].user_name,
-                        validPublicEntryId.title,
-                        validPublicEntryId.body,
-                        // validPublicEntryId.created
-                    ];
-
-                    resultProperties.forEach((prop, index) => {
-                        expect(res.body).to.have.property(prop);
-                        expect(res.body[prop]).to.equal(expectedValues[index]);
-                    });
-                });
-            });
-        });
     });
 });
