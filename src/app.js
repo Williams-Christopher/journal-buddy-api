@@ -11,6 +11,7 @@ const authRouter = require('./auth/auth-router');
 const usersRouter = require('./users/users-router');
 const journalEntriesRouter = require('./journal-entries/journal-entries-router');
 const shareRouter = require('./share/share-router');
+const metricsRouter = require('./metrics/metrics-router');
 
 const app = express();
 const morganOption = (NODE_ENV === 'production') ? 'tiny' : 'common';
@@ -22,6 +23,7 @@ app.use('/api/login', authRouter);
 app.use('/api/users', usersRouter);
 app.use('/api/journal-entries', journalEntriesRouter);
 app.use('/api/share', shareRouter);
+app.use('/api/metrics', metricsRouter);
 
 app.use(function errorHandler(error, req, res, next) {
     let response;
