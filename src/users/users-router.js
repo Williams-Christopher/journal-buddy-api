@@ -27,6 +27,10 @@ usersRouter
             return res.status(400).json({error: `${passwordValidationMessage}`});
         }
 
+        if(!UsersService.emailValidation(newUser.email)) {
+            return res.status(400).json({error: `Email does not appear valid`})
+        }
+
         UsersService.checkUserNameExists(db, newUser.user_name)
             .then(userNameExists => {
                 if(userNameExists) {
