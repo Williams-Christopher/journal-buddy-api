@@ -69,7 +69,14 @@ MetricsService = {
     },
 
     buildFeelingsObjectFromArray(feelingsArray) {
-        const feelingsObject = {};
+        const feelingsObject = {
+            1: 0,
+            2: 0,
+            3: 0,
+            4: 0,
+            5: 0,
+        };
+
         feelingsArray.forEach(obj =>
             feelingsObject[obj.feeling] = parseInt(obj.total)
         );
@@ -77,49 +84,74 @@ MetricsService = {
         return feelingsObject;
     },
 
-    fillFeelingsObject(feelingsObject) {
-        const feelings = [1, 2, 3, 4, 5];
+    // fillFeelingsObject(feelingsObject) {
+    //     const feelings = [1, 2, 3, 4, 5];
 
-        feelings.forEach(feeling => {
-            if(!feelingsObject.hasOwnProperty(feeling)) {
-                feelingsObject[feeling] = 0;
-            }
-        });
+    //     feelings.forEach(feeling => {
+    //         if(!feelingsObject.hasOwnProperty(feeling)) {
+    //             feelingsObject[feeling] = 0;
+    //         }
+    //     });
 
-        return feelingsObject;
-    },
+    //     return feelingsObject;
+    // },
 
     buildDaysObjectFromArray(daysArray) {
-        const daysObject = {};
+        const daysObject = {
+            'Sunday': 0,
+            'Monday': 0,
+            'Tuesday': 0,
+            'Wednesday': 0,
+            'Thursday': 0,
+            'Friday': 0,
+            'Saturday': 0,
+        };
+        
         daysArray.forEach(obj =>
             daysObject[obj.day_name.trim()] = parseInt(obj.total)
         );
 
-        return daysObject;
-    },
-
-    fillDaysObject(daysObject) {
-        const days = [
-            'Sunday',
-            'Monday',
-            'Tuesday',
-            'Wednesday',
-            'Thursday',
-            'Friday',
-            'Saturday'
-        ];
-
-        days.forEach(day => {
-            if(!daysObject.hasOwnProperty(day)) {
-                daysObject[day] = 0;
-            }
-        });
+        console.log('New daysObject: ', daysObject);
 
         return daysObject;
     },
+
+    // fillDaysObject(daysObject) {
+    //     const days = [
+    //         'Sunday',
+    //         'Monday',
+    //         'Tuesday',
+    //         'Wednesday',
+    //         'Thursday',
+    //         'Friday',
+    //         'Saturday'
+    //     ];
+
+    //     days.forEach(day => {
+    //         if(!daysObject.hasOwnProperty(day)) {
+    //             daysObject[day] = 0;
+    //         }
+    //     });
+
+    //     return daysObject;
+    // },
 
     buildMonthsObjectFromArray(monthsArray) {
-        const monthsObject = {};
+        const monthsObject = {
+            'January': 0,
+            'February': 0,
+            'March': 0,
+            'April': 0,
+            'May': 0,
+            'June': 0,
+            'July': 0,
+            'August': 0,
+            'September': 0,
+            'October': 0,
+            'November': 0,
+            'December': 0,
+        };
+
         monthsArray.forEach(obj =>
             monthsObject[obj.month_name.trim()] = parseInt(obj.total)
         );
@@ -127,30 +159,30 @@ MetricsService = {
         return monthsObject;
     },
 
-    fillMonthsObject(monthsObject) {
-        const months = [
-            'January',
-            'February',
-            'March',
-            'April',
-            'May',
-            'June',
-            'July',
-            'August',
-            'September',
-            'October',
-            'November',
-            'December'
-        ];
+    // fillMonthsObject(monthsObject) {
+    //     const months = [
+    //         'January',
+    //         'February',
+    //         'March',
+    //         'April',
+    //         'May',
+    //         'June',
+    //         'July',
+    //         'August',
+    //         'September',
+    //         'October',
+    //         'November',
+    //         'December'
+    //     ];
 
-        months.forEach(month => {
-            if(!monthsObject.hasOwnProperty(month)) {
-                monthsObject[month] = 0;
-            }
-        });
+    //     months.forEach(month => {
+    //         if(!monthsObject.hasOwnProperty(month)) {
+    //             monthsObject[month] = 0;
+    //         }
+    //     });
 
-        return monthsObject;
-    },
+    //     return monthsObject;
+    // },
 
     serializeMetricsObject(resultsArray) {
         return {
