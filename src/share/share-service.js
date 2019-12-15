@@ -3,7 +3,7 @@ ShareService = {
         return db
             .from('entries')
             .select([
-                'users.user_name',
+                'users.first_name',
                 'entries.title',
                 'entries.body',
                 'entries.created'
@@ -16,7 +16,7 @@ ShareService = {
             .where({
                 entry_id: entryId,
                 privacy: 1
-            });
+            })
     },
 };
 

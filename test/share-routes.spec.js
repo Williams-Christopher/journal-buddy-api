@@ -16,7 +16,7 @@ describe(`Users routes`, () => {
     before(`cleanup tables`, () => testHelpers.truncateTables(db));
     after(`destroy db connection`, () => db.destroy());
 
-    describe(`/api/share/json/:entry_id`, () => {
+    describe(`/api/share/:entry_id`, () => {
         beforeEach(`seed tables`, () => testHelpers.seedAllTables(db));
         afterEach(`truncate tables`, () => testHelpers.truncateTables(db));
 
@@ -26,19 +26,19 @@ describe(`Users routes`, () => {
 
         it(`responds 404 'Entry does not exist or is private' when an invalid entry_id is given`, () => {
             return supertest(app)
-                .get(`/api/share/json/${invalidEntryId}`)
+                .get(`/api/share/${invalidEntryId}`)
                 .expect(404, { error: 'Entry does not exist or is private' });
         });
 
         it(`responds 404 'Entry does not exist or is private' when a valid entry_id is given but the entry is private`, () => {
             return supertest(app)
-                .get(`/api/share/json/${validPrivateEntryId.entry_id}`)
+                .get(`/api/share/${validPrivateEntryId.entry_id}`)
                 .expect(404, { error: 'Entry does not exist or is private' });
         });
 
         it(`responds 200 with the requested entry in a JSON formatted body when a public and valid entry_id is requested`, () => {
             return supertest(app)
-                .get(`/api/share/json/${validPublicEntryId.entry_id}`)
+                .get(`/api/share/${validPublicEntryId.entry_id}`)
                 .expect(200)
                 .expect(res => {
                     // const resultProperties = ['user', 'title', 'body', 'created'];
@@ -47,7 +47,7 @@ describe(`Users routes`, () => {
                         user.id === validPublicEntryId.user_id
                     );
                     const expectedValues = [
-                        expectedUserName[0].user_name,
+                        expectedUserName[0].first_name,
                         validPublicEntryId.title,
                         validPublicEntryId.body,
                         // validPublicEntryId.created
