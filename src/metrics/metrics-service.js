@@ -84,18 +84,6 @@ MetricsService = {
         return feelingsObject;
     },
 
-    // fillFeelingsObject(feelingsObject) {
-    //     const feelings = [1, 2, 3, 4, 5];
-
-    //     feelings.forEach(feeling => {
-    //         if(!feelingsObject.hasOwnProperty(feeling)) {
-    //             feelingsObject[feeling] = 0;
-    //         }
-    //     });
-
-    //     return feelingsObject;
-    // },
-
     buildDaysObjectFromArray(daysArray) {
         const daysObject = {
             'Sunday': 0,
@@ -113,26 +101,6 @@ MetricsService = {
 
         return daysObject;
     },
-
-    // fillDaysObject(daysObject) {
-    //     const days = [
-    //         'Sunday',
-    //         'Monday',
-    //         'Tuesday',
-    //         'Wednesday',
-    //         'Thursday',
-    //         'Friday',
-    //         'Saturday'
-    //     ];
-
-    //     days.forEach(day => {
-    //         if(!daysObject.hasOwnProperty(day)) {
-    //             daysObject[day] = 0;
-    //         }
-    //     });
-
-    //     return daysObject;
-    // },
 
     buildMonthsObjectFromArray(monthsArray) {
         const monthsObject = {
@@ -156,31 +124,6 @@ MetricsService = {
 
         return monthsObject;
     },
-
-    // fillMonthsObject(monthsObject) {
-    //     const months = [
-    //         'January',
-    //         'February',
-    //         'March',
-    //         'April',
-    //         'May',
-    //         'June',
-    //         'July',
-    //         'August',
-    //         'September',
-    //         'October',
-    //         'November',
-    //         'December'
-    //     ];
-
-    //     months.forEach(month => {
-    //         if(!monthsObject.hasOwnProperty(month)) {
-    //             monthsObject[month] = 0;
-    //         }
-    //     });
-
-    //     return monthsObject;
-    // },
 
     serializeMetricsObject(resultsArray) {
         return {
