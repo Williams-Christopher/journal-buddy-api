@@ -28,16 +28,10 @@ metricsRouter
                 // For entries by feeling, entries by day, and entries by month,
                 // process the data from Postgres into an object and insert each
                 // back into the results array for later serialization
-                // let feelingsMetric = MetricsService.buildFeelingsObjectFromArray(results[3]);
-                // results[3] = MetricsService.fillFeelingsObject(feelingsMetric);
                 results[3] = MetricsService.buildFeelingsObjectFromArray(results[3]);
 
-                // let daysMetric = MetricsService.buildDaysObjectFromArray(results[4]);
-                // results[4] = MetricsService.fillDaysObject(daysMetric);
                 results[4] = MetricsService.buildDaysObjectFromArray(results[4]);
 
-                // let monthsMetric = MetricsService.buildMonthsObjectFromArray(results[5]);
-                // results[5] = MetricsService.fillMonthsObject(monthsMetric);
                 results[5] = MetricsService.buildMonthsObjectFromArray(results[5]);
 
                 let combinedMetrics = MetricsService.serializeMetricsObject(results)
