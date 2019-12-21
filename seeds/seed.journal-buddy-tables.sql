@@ -6,8 +6,8 @@ COMMIT;
 
 /* USERS */
 BEGIN;
-insert into users (user_name, first_name, password, email) values ('pstickings0', 'Paul', '$2a$12$xwSsS.HYOH9WsPQUN9GqzeM.nEMD.rOtbbK8qDW8fX2bZBvDUphmC'
-, 'gcowderoy0@rakuten.co.jp'); -- password01
+insert into users (user_name, first_name, password, email) values ('demo', 'DemoUser', '$2a$12$xwSsS.HYOH9WsPQUN9GqzeM.nEMD.rOtbbK8qDW8fX2bZBvDUphmC'
+, 'demo@chriswillia.ms'); -- password01
 insert into users (user_name, first_name, password, email) values ('cedgson1', 'Cedric', '$2a$12$AkKUIbD/z4zR/YY2jBT6HeAxEs3hC1wlTDiDcBFPkeSYeDmOLmxe6'
 , 'bfollos1@sfgate.com'); -- password02
 insert into users (user_name, first_name, password, email) values ('kmccurtin2', 'Kevin', '$2a$12$g1Ce8Y69.8E5TSOWxW5Ag.c2proYu18PLdNUlOdXIPNUMoRVn8uBq'
