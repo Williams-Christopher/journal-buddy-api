@@ -111,8 +111,6 @@ MetricsService = {
             daysObject[obj.day_name.trim()] = parseInt(obj.total)
         );
 
-        console.log('New daysObject: ', daysObject);
-
         return daysObject;
     },
 
